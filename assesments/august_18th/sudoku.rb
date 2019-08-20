@@ -107,50 +107,56 @@ def valid_row?(board, row)
   true
 end
 
+def find_box(row, column)
+  if row < 3
+    case column
+    when 0..2
+      box_indexes = [0, 0]
+    when 3..5
+      box_indexes = [0, 3]
+    when 6..8
+      box_indexes = [0, 6]
+    end
+  elsif row <6
+    case column
+    when 0..2
+      box_indexes = [3, 0]
+    when 3..5
+      box_indexes = [3, 3]
+    when 6..8
+      box_indexes = [3, 6]
+    end
+  else
+    case column
+    when 0..2
+      box_indexes = [6, 0]
+    when 3..5
+      box_indexes = [6, 3]
+    when 6..8
+      box_indexes = [6, 6]
+    end
+  end
+
+  box_indexes
+end
+
 def get_box(board, row, column)
-   if row < 3
-     case column
-     when 0..2
-       box_indexes = [0, 0]
-     when 3..5
-       box_indexes = [0, 3]
-     when 6..8
-       box_indexes = [0, 6]
-     end
-   elsif row <6
-     case column
-     when 0..2
-       box_indexes = [3, 0]
-     when 3..5
-       box_indexes = [3, 3]
-     when 6..8
-       box_indexes = [3, 6]
-     end
-   else
-     case column
-     when 0..2
-       box_indexes = [6, 0]
-     when 3..5
-       box_indexes = [6, 3]
-     when 6..8
-       box_indexes = [6, 6]
-     end
-   end
+  box_indexes = find_box(row, column)
 
-   k        = 0
-   box      = []
-   row_0    = box_indexes[0]
-   column_0 = box_indexes[1]
+  k        = 0
+  box      = []
+  row_0    = box_indexes[0]
+  column_0 = box_indexes[1]
 
-   for i in row_0..row_0+2 do
-     for j in column_0..column_0+2 do
-       box[k] = board[i][j]
+  for i in row_0..row_0+2 do
+    for j in column_0..column_0+2 do
+      box[k] = board[i][j]
 
-       k += 1
-     end
-   end
+      k += 1
+    end
+  end
 
-   box
+  box
 end
 
 def get_column(board, column)
@@ -222,4 +228,3 @@ p sudoku(str22)
 p sudoku(str3)
 p sudoku(str4)
 p sudoku(str5)
-p sudoku(str6)
